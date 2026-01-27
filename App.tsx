@@ -37,6 +37,14 @@ const App: React.FC = () => {
   
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // --- STATE CLEANUP ---
+  // When the API Key changes (Reset, switch to Demo, login), clear old errors.
+  useEffect(() => {
+    setError(null);
+    setImportStats(null);
+    setIsParsing(false);
+  }, [apiKey]);
+
   // If no key is present (and not in Demo mode), strictly show ONLY the Modal.
   // This prevents the App UI from rendering in the background.
   if (!hasKey) {
@@ -295,6 +303,8 @@ const App: React.FC = () => {
   };
 
   const loadSample = () => {
+    setError(null);
+    setImportStats(null);
     setJsonInput(JSON.stringify(SAMPLE_DATA, null, 2));
     processRawData(SAMPLE_DATA);
   };
