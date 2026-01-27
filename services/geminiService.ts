@@ -215,9 +215,12 @@ export const parseTextToRequirements = async (rawText: string, apiKeyString: str
   // 2. PROMPT
   const systemPrompt = `
     You are a High-Fidelity Data Extraction Engine.
-    **TASK**: Extract engineering requirements from the text into a JSON array.
-    **JSON SCHEMA**: { "req_id", "source_doc", "section", "category", "subcategory", "criticality", "text_original", "ctonote" }.
-    **RULES**: Output ONLY valid JSON. No markdown.
+    **TASK**: Extract engineering requirements from the input into a JSON array.
+    **INPUT**: The user will provide text, valid JSON, or unstructured data (e.g. lists, logs).
+    **RULES**: 
+    1. If the input is raw data (e.g. a list of 'countries'), SYNTHESIZE requirements from it (e.g. "The system MUST support the country Germany").
+    2. JSON SCHEMA for output: { "req_id", "source_doc", "section", "category", "subcategory", "criticality", "text_original", "ctonote" }.
+    3. Output ONLY valid JSON. No markdown.
   `;
 
   // 3. EXECUTION
@@ -243,7 +246,7 @@ export const parseTextToRequirements = async (rawText: string, apiKeyString: str
             const response = await ai.models.generateContent({
                 model: model,
                 contents: [
-                  { role: 'user', parts: [{ text: `EXTRACT REQUIREMENTS FROM THIS PARTIAL TEXT:\n\n${chunk}` }] }
+                  { role: 'user', parts: [{ text: `EXTRACT REQUIREMENTS FROM THIS INPUT:\n\n${chunk}` }] }
                 ],
                 config: {
                   systemInstruction: systemPrompt,
