@@ -196,7 +196,25 @@ const App: React.FC = () => {
       
       try {
         parsed = JSON.parse(trimmed);
-        if (!Array.isArray(parsed) && trimmed.includes('][')) {
+        
+        // --- SMART SCHEMA DETECTION ---
+        // Heuristic: Does this JSON look like our Requirement format?
+        // If it's just raw data (e.g. { "countries": [...] }), we force AI parsing.
+        const sampleItem = Array.isArray(parsed) ? (parsed.length > 0 ? parsed[0] : null) : parsed;
+        const looksLikeRequirement = sampleItem && typeof sampleItem === 'object' && (
+          'req_id' in sampleItem || 
+          'text_original' in sampleItem || 
+          'criticality' in sampleItem ||
+          'source_doc' in sampleItem
+        );
+
+        if (parsed && !looksLikeRequirement) {
+           console.log("Valid JSON detected, but schema mismatch. Delegating to AI agent.");
+           parsed = null; // This forces the code to fall into the AI parsing block below
+        }
+        // -----------------------------
+
+        if (parsed && !Array.isArray(parsed) && trimmed.includes('][')) {
             throw new Error("Potential multi-array"); 
         }
       } catch (e) {
@@ -209,8 +227,9 @@ const App: React.FC = () => {
                parsed = [];
              }
         }
+      }
         
-        if (!parsed || parsed.length === 0) {
+      if (!parsed || parsed.length === 0) {
            setIsParsing(true);
            try {
              parsed = await parseTextToRequirements(trimmed, apiKey);
@@ -219,7 +238,6 @@ const App: React.FC = () => {
            } finally {
              setIsParsing(false);
            }
-        }
       }
 
       if (parsed === null || parsed === undefined) {
