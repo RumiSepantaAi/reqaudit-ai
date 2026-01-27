@@ -191,7 +191,8 @@ const App: React.FC = () => {
       const trimmed = jsonInput.trim();
       if (!trimmed) return;
 
-      let parsed: any[];
+      // Initialize to null to satisfy TypeScript definitive assignment checks
+      let parsed: any = null;
       
       try {
         parsed = JSON.parse(trimmed);
@@ -219,6 +220,11 @@ const App: React.FC = () => {
              setIsParsing(false);
            }
         }
+      }
+
+      if (parsed === null || parsed === undefined) {
+         // Should not happen if AI succeeds, but handle safe fallback
+         throw new Error("Could not parse content.");
       }
 
       if (!Array.isArray(parsed)) {
