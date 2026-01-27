@@ -2,54 +2,50 @@
 
 > **Intelligent Technical Requirements Governance & Analytics Suite**
 
+[![Deploy with Vercel](https://vercel.com/button)](https://reqaudit-ai.vercel.app)
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
-![AI Core](https://img.shields.io/badge/AI%20Core-Gemini%20Hybrid%20Cascade-blue)
-![Tech Stack](https://img.shields.io/badge/Stack-React%2018%20%7C%20TypeScript%20%7C%20Tailwind-slate)
-![License](https://img.shields.io/badge/License-MIT-green)
+![AI Core](https://img.shields.io/badge/AI-Gemini%20%7C%20Ollama-blue)
+![Privacy](https://img.shields.io/badge/Privacy-Local--First-green)
 
-## 📋 Executive Summary
+## 🔗 [Launch Live App](https://reqaudit-ai.vercel.app)
 
 **ReqAudit AI** is a specialized analytics dashboard designed for Engineering Leaders, Solution Architects, and QA Managers. It transforms unstructured technical specifications (PDF exports, emails, Wikis) into structured, queryable data.
 
-**Key Open Source Feature:** This application follows a **"Bring Your Own Key" (BYOK)** architecture. The application is a static Single Page Application (SPA). Your Gemini API key is stored locally in your browser and communicates directly with Google's APIs. No data is sent to any intermediate backend.
-
 ---
 
-## 🧠 Architecture: The Hybrid Intelligence Cascade
+## 🧠 Architecture: The Hybrid Intelligence Engine
 
-To ensure 99.9% uptime and handle high-throughput analysis, ReqAudit AI implements a **Robust Model Cascade Strategy**.
+ReqAudit AI is architected for flexibility and privacy. It supports two distinct operational modes:
 
-1.  **Tier 1: High-Fidelity Reasoning** (`gemini-3-pro-preview`)
-    *   *Used for:* Deep semantic analysis and conflicting requirement detection.
-2.  **Tier 2: High-Velocity Inference** (`gemini-3-flash-preview` / `gemini-2.0-flash`)
-    *   *Used for:* Bulk data parsing and syntax correction.
-3.  **Tier 3: Open Source Fallback** (`gemma-2-27b-it`)
-    *   *Used for:* Failover redundancy.
+### 1. ☁️ Cloud High-Fidelity (Google Gemini)
+Leverages a **Cascade Strategy** for maximum performance:
+*   **Tier 1:** `gemini-3-pro-preview` for deep reasoning and conflict detection.
+*   **Tier 2:** `gemini-3-flash-preview` for high-speed bulk ingestion.
+
+### 2. 🏠 Local Sovereignty (Ollama / Local LLM)
+Full support for local inference running on your own hardware.
+*   Compatible with **Llama 3**, **Mistral**, **Gemma**, etc.
+*   **Air-Gapped Ready:** No data leaves your machine when using Local Mode.
 
 ---
 
 ## ✨ Key Features
 
-*   **Smart Ingestion Engine:** Converts raw text into structured JSON with inferred metadata.
+*   **Smart Ingestion Engine:** Converts raw text/JSON into structured data with inferred metadata.
 *   **Semantic Data Hygiene:** Identifies duplicates, vagueness, and sequence gaps using AI.
 *   **AI Analyst (RAG-Lite):** Natural language interface to your requirements database.
 *   **Executive TL;DR:** Automated management summaries and risk assessments.
-*   **Secure BYOK:** Complete privacy control. Reset your key at any time.
+*   **Zero-Friction Demo Mode:** Explore the full UI with mock data—no API keys required.
 
 ---
 
 ## 🚀 Getting Started
 
-### 1. Deployment (Vercel/Netlify/GitHub Pages)
+### Option A: Use the Hosted App
+Simply visit **[reqaudit-ai.vercel.app](https://reqaudit-ai.vercel.app)**.
+*   **Privacy Note:** This is a client-side SPA. Your API keys are stored in *your* browser's LocalStorage and communicate directly with Google/Local APIs. No data is sent to our servers.
 
-Since this is a client-side app, you can deploy it instantly:
-
-1.  Fork this repository.
-2.  Import to Vercel/Netlify.
-3.  Run build (`npm run build`).
-4.  **No Environment Variables Needed!** The app handles keys via the UI.
-
-### 2. Local Development
+### Option B: Run Locally
 
 ```bash
 # Clone
@@ -62,12 +58,25 @@ npm install
 npm run dev
 ```
 
-### 3. Usage
+### Option C: Using Local LLM (Ollama)
 
-1.  Open the application.
-2.  You will be prompted to enter a **Google Gemini API Key**.
-    *   Get one for free at [Google AI Studio](https://aistudio.google.com/app/apikey).
-3.  The key is saved to your browser's Local Storage.
+To use ReqAudit AI with a local model like Llama 3, you must enable CORS in Ollama:
+
+1.  **Install Ollama:** [ollama.com](https://ollama.com)
+2.  **Set Environment Variable:**
+    *   Mac/Linux: `launchctl setenv OLLAMA_ORIGINS "*"` (or in your shell profile)
+    *   Windows: Set user environment variable `OLLAMA_ORIGINS` to `*`.
+3.  **Run Model:** `ollama run llama3`
+4.  **Connect:** Open ReqAudit AI, select **Local LLM**, and enter `http://localhost:11434/v1`.
+
+---
+
+## 🛠️ Tech Stack
+
+*   **Frontend:** React 19, TypeScript, Vite 5
+*   **Styling:** Tailwind CSS, Lucide Icons
+*   **Visualization:** Recharts
+*   **AI SDK:** Google GenAI SDK (Official) + Custom OpenAI-Compatible Adapter
 
 ---
 
