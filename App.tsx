@@ -38,11 +38,21 @@ const App: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // --- STATE CLEANUP ---
-  // When the API Key changes (Reset, switch to Demo, login), clear old errors.
+  // When the API Key changes (Reset, switch to Demo, login), clear EVERYTHING.
+  // This ensures the user lands on the Import screen with a clean slate.
   useEffect(() => {
     setError(null);
     setImportStats(null);
     setIsParsing(false);
+    
+    // Hard Reset of all Data & Views
+    setData([]);
+    setView(ViewMode.IMPORT);
+    setJsonInput('');
+    setTldrSummary('');
+    setIsTldrLoading(false);
+    setRestorePoint(null);
+    setChatHistory([]);
   }, [apiKey]);
 
   // If no key is present (and not in Demo mode), strictly show ONLY the Modal.
