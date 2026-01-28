@@ -2,10 +2,10 @@
 
 > **Intelligent Technical Requirements Governance & Analytics Suite**
 
-[![Deploy with Vercel](https://vercel.com/button)](https://reqaudit-ai.vercel.app)
+![Deploy with Vercel](https://vercel.com/button)](https://reqaudit-ai.vercel.app)
 ![Static Badge](https://img.shields.io/badge/Portfolio_Demo-success)
 ![AI Core](https://img.shields.io/badge/AI-Gemini%20%7C%20Ollama-blue)
-![Privacy](https://img.shields.io/badge/Privacy-Local--First-green)]
+![Privacy](https://img.shields.io/badge/Privacy-Local--First-green)
 
 ## 🔗 [Launch Live App](https://reqaudit-ai.vercel.app)
 
