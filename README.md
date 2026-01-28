@@ -3,7 +3,7 @@
 > **Intelligent Technical Requirements Governance & Analytics Suite**
 
 [![Deploy with Vercel](https://vercel.com/button)](https://reqaudit-ai.vercel.app)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
+![Status](https://img.shields.io/badge/Status-Portfolio-Demo%20Ready-success)
 ![AI Core](https://img.shields.io/badge/AI-Gemini%20%7C%20Ollama-blue)
 ![Privacy](https://img.shields.io/badge/Privacy-Local--First-green)
 
@@ -25,7 +25,6 @@ Leverages a **Cascade Strategy** for maximum performance:
 ### 2. 🏠 Local Sovereignty (Ollama / Local LLM)
 Full support for local inference running on your own hardware.
 *   Compatible with **Llama 3**, **Mistral**, **Gemma**, etc.
-*   **Air-Gapped Ready:** No data leaves your machine when using Local Mode.
 
 ---
 
@@ -43,13 +42,19 @@ Full support for local inference running on your own hardware.
 
 ### Option A: Use the Hosted App
 Simply visit **[reqaudit-ai.vercel.app](https://reqaudit-ai.vercel.app)**.
-*   **Privacy Note:** This is a client-side SPA. Your API keys are stored in *your* browser's LocalStorage and communicate directly with Google/Local APIs. No data is sent to our servers.
+
+* **Privacy Note (Hosted App):** This is a client-side SPA. Your content (prompts/specs) is processed in your browser.
+  * If you use **Cloud Mode (Gemini)**, your browser sends requests directly to Google’s Gemini API.
+  * If you use **Local Mode (Ollama)**, your browser sends requests directly to `http://localhost:11434`.
+  * We do **not** run an application backend for prompt/spec processing. However, like any host/CDN, **Vercel processes request metadata (e.g., IP address, logs)** to deliver the site.
+
 
 ### Option B: Run Locally
 
 ```bash
 # Clone
-git clone https://github.com/your-org/reqaudit-ai.git
+git clone https://github.com/RumiSepantaAi/reqaudit-ai.git
+
 
 # Install
 npm install
@@ -60,24 +65,25 @@ npm run dev
 
 ### Option C: Using Local LLM (Ollama)
 
-To use ReqAudit AI with a local model like Llama 3, you must enable CORS in Ollama:
+"To use Local LLM with Ollama:
+1. Clone and run the app LOCALLY (npm run dev)
+2. **Set `OLLAMA_ORIGINS` (recommended: allowlist, not `*`)**
+   * macOS (Ollama app):  
+     `launchctl setenv OLLAMA_ORIGINS "http://localhost:5173,https://reqaudit-ai.vercel.app"`
+   * Linux (systemd): set `Environment="OLLAMA_ORIGINS=http://localhost:5173,https://reqaudit-ai.vercel.app"`
+   * Windows: set user env var `OLLAMA_ORIGINS` to:  
+     `http://localhost:5173,https://reqaudit-ai.vercel.app`
 
-1.  **Install Ollama:** [ollama.com](https://ollama.com)
-2.  **Set Environment Variable:**
-    *   Mac/Linux: `launchctl setenv OLLAMA_ORIGINS "*"` (or in your shell profile)
-    *   Windows: Set user environment variable `OLLAMA_ORIGINS` to `*`.
-3.  **Run Model:** `ollama run llama3`
-4.  **Connect:** Open ReqAudit AI, select **Local LLM**, and enter `http://localhost:11434/v1`.
+Note: Local LLM mode ONLY works when running the app locally, not on the Vercel deployment."
 
 ---
 
 ## 🛠️ Tech Stack
 
-*   **Frontend:** React 19, TypeScript, Vite 5
+*   **Frontend:** React 18, TypeScript, Vite 5
 *   **Styling:** Tailwind CSS, Lucide Icons
 *   **Visualization:** Recharts
 *   **AI SDK:** Google GenAI SDK (Official) + Custom OpenAI-Compatible Adapter
 
 ---
 
-*Built with ❤️ for Engineering Excellence.*
