@@ -7,7 +7,7 @@
 ![AI Core](https://img.shields.io/badge/AI-Gemini%20%7C%20Ollama-blue)
 ![Privacy](https://img.shields.io/badge/Privacy-Local--First-green)
 
-## 🔗 [Launch Live App](https://reqaudit-ai.vercel.app)
+## 🔗 [Launch Live Demo](https://reqaudit-ai.vercel.app)
 
 **ReqAudit AI** is a specialized analytics dashboard designed for Engineering Leaders, Solution Architects, and QA Managers. It transforms unstructured technical specifications (PDF exports, emails, Wikis) into structured, queryable data.
 
@@ -87,3 +87,7 @@ Note: Local LLM mode ONLY works when running the app locally, not on the Vercel 
 
 ---
 
+
+
+
+> ⚠️ **Portfolio Demo:** This repository is a personal showcase.
